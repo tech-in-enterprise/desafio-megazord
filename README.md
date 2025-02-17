@@ -24,6 +24,13 @@ Magazord Test Front-end
 - Com mais tempo, daria para tratar melhor os retornos dos erros
 - Coloquei o botão abaixo da barra de busca em tela mobile para melhorar o design, já que agora busca direto pelo usuário
 - Botão para alternar a pesquisa entre usuário e a busca de repositórios desse usuário
+- Com mais tempo daria para melhorar o loading e os erros retornados deixando visualmente melhor para o usuário final
+- Criar pages para só depois reenderizar em App.tsx
+- Criar uma documentação explicando melhor o fluxo do projeto, mas basicamente se resume em:
+ - Requisições feitas em services
+ - Gerenciamento das requisições nas stories
+ - Distribuição nos respectivos componentes das informações trazidas dos stores
+ - Reenderização dos componetens na página App para o usuário final 
 
 
 # Como Executar
