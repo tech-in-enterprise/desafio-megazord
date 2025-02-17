@@ -1,7 +1,9 @@
-import {  useEffect } from "react"
+import { useEffect } from "react"
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
-import { useRepoStore } from "../../../store/use-repo-store"
+import { useRepoStore } from "../../../store/user-repo-store"
+import { useStarredRepoStore } from "../../../store/user-repo-starred"
+import { useUserInfoStore } from "../../../store/user-infor-profile"
 
 interface RepoTabsProps {
   activeTab: "repositories" | "starred"
@@ -10,8 +12,10 @@ interface RepoTabsProps {
 
 
 export default function RepoTabs({ activeTab, setActiveTab }: RepoTabsProps) {
-  const { username, userInfo, starredRepos, UsersRepositories, isLoading, error } = useRepoStore()
- 
+  const { username, UsersRepositories } = useRepoStore()
+  const { userInfo } = useUserInfoStore()
+  const { starredRepos, isLoading, error } = useStarredRepoStore()
+
   useEffect(() => {
     if (username) {
       UsersRepositories(username)

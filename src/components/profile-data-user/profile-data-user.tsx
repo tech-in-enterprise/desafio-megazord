@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react"
-import { useRepoStore } from "../../store/use-repo-store"
+import { useRepoStore } from "../../store/user-repo-store"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import ApartmentIcon from '@mui/icons-material/Apartment'
+import PinDropIcon from '@mui/icons-material/PinDrop'
+import { useUserInfoStore } from "../../store/user-infor-profile"
+
 
 export default function UserProfile() {
-  const { username, userInfo, UsersRepositories, isLoading, error } = useRepoStore()
+  const { username } = useRepoStore()
+  const { userInfo, getUserInfo, isLoading, error } = useUserInfoStore()
   const [showAdicionalInfo, setShowAditionalInfor] = useState(true)
 
   const handleOpenAditionalInfo = () => {
@@ -13,13 +18,13 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (username) {
-      UsersRepositories(username)
+      getUserInfo(username)
     }
-  }, [username, UsersRepositories])
+  }, [username, getUserInfo])
 
   if (isLoading) return (
     <div className="mt-4 md:ml-10 flex items-center justify-center">
-      <div className="flex flex-col items-center space-y-4 p-6  animate-pulse">
+      <div className="flex flex-col items-center space-y-4 p-6 animate-pulse">
         <div className="w-[104px] h-[104px] bg-gray-200 rounded-full"></div>
         <div className="w-[147px] h-[16px] bg-gray-200 rounded"></div>
         <div className="w-[217px] h-[16px] bg-gray-200 rounded"></div>
@@ -36,7 +41,6 @@ export default function UserProfile() {
     </div>
   )
 
-
   return (
     <div className="mt-4 md:ml-10">
       {/* Layout para dispositivos móveis */}
@@ -51,10 +55,26 @@ export default function UserProfile() {
           <p className="text-center text-sm text-secondary-text w-[217px]">
             {userInfo?.bio || "Sem bio disponível"}
           </p>
-          <button className="w-[148px] md:hidden lg:hidden xl:hidden text-bg-buttom-color text-sm mt-5" onClick={handleOpenAditionalInfo}>Informações Adicionais {showAdicionalInfo ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} </button>
+          <button className="w-[148px] md:hidden lg:hidden xl:hidden text-bg-buttom-color text-sm mt-5" onClick={handleOpenAditionalInfo}>
+            Informações Adicionais {showAdicionalInfo ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} 
+          </button>
           <div className={`sm:w-[380px] md:w-[148px] lg:w-[148px] p-4 mt-2 sm:bg-tab md:bg-transparent lg:bg-transparent rounded-2xl  md:block lg:block xl:block ${showAdicionalInfo ? 'block' : 'sm:hidden'}`}>
-            <p className="w-[148px] text-sm text-bg-buttom-color "> {userInfo?.location && `${userInfo.location}`}</p>
-            <p className="w-[148px] text-sm text-bg-buttom-color ">{userInfo?.company && `${userInfo.company}`}</p>
+            <p className="w-[148px] text-sm text-bg-buttom-color flex items-center">
+              {userInfo?.location && (
+                <>
+                  <PinDropIcon sx={{ fontSize: 18 }} />
+                  {userInfo.location}
+                </>
+              )}
+            </p>
+            <p className="w-[148px] text-sm text-bg-buttom-color flex items-center">
+              {userInfo?.company && (
+                <>
+                  <ApartmentIcon sx={{ fontSize: 18}} />
+                  {userInfo.company}
+                </>
+              )}
+            </p>
           </div>
         </div>
       </div>

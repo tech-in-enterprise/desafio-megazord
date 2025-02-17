@@ -15,6 +15,7 @@ export type User = {
   html_url: string
   stargazers_count: number
   public_repos: number
+  language: string | null 
 }
 
 // Função para buscar as informações do usuário
@@ -38,6 +39,7 @@ export type Repo = {
   forks_count: number
   stargazers_count: number
   html_url: string
+  language: string | null 
 }
 
 // Função para buscar os repositórios usando Axios
@@ -64,15 +66,4 @@ export const getStarredRepos = async (username: string): Promise<Repo[]> => {
   return data
 }
 
-
-// Função para buscar as linguagens de um repositório
-export const getRepoLanguages = async (username: string, repoName: string): Promise<Record<string, number>> => {
-  const token = import.meta.env.VITE_GITHUB_TOKEN
-  const { data } = await axiosRequest.get(`/repos/${username}/${repoName}/languages`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return data
-}
 

@@ -26,7 +26,7 @@ export default function App() {
           </div>
 
           {/* Main Content */}
-          <div className="flex-grow w-full md:w-3/4 p-4 pt-0">
+          <div className="flex-grow w-full md:w-3/4 p-4 pt-0 lg:mt-4">
             {/* Tabs */}
             <RepoTabs activeTab={tabRepo} setActiveTab={setTabRepo} />
 

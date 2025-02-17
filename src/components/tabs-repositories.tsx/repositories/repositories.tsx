@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { useRepoStore } from "../../../store/use-repo-store"
-import { getRepoLanguages } from "../../../services/git-repo-services"
+import React, { useEffect } from "react"
+import { useRepoStore } from "../../../store/user-repo-store"
+
 import StarIcon from "@mui/icons-material/Star"
 import { GoRepoForked } from "react-icons/go"
+import { useLanguageStore } from "../../../store/user-repo-language"
 
 export const UserRepos: React.FC = () => {
   const { username, repositories, UsersRepositories, isLoading, error } = useRepoStore()
-  const [repoLanguages, setRepoLanguages] = useState<Record<number, Record<string, number>>>({})
+  const { languageFilter } = useLanguageStore()  // Acessando o filtro de linguagem
 
   useEffect(() => {
     if (username) {
@@ -14,35 +15,18 @@ export const UserRepos: React.FC = () => {
     }
   }, [username, UsersRepositories])
 
-  useEffect(() => {
-    // Quando os repositórios forem carregados, buscar as linguagens
-    const fetchLanguages = async () => {
-      for (const repo of repositories) {
-        try {
-          const languages = await getRepoLanguages(username, repo.name)
-          setRepoLanguages((prev) => ({
-            ...prev,
-            [repo.id]: languages, // Atualiza as linguagens para cada repositório
-          }))
-        } catch (error) {
-          console.error("Erro ao buscar linguagens do repositório", error)
-        }
-      }
-    }
-
-    if (repositories.length > 0) {
-      fetchLanguages()
-    }
-  }, [repositories, username])
-
   if (isLoading) return <div>Carregando...</div>
   if (error) return <div className="text-red-500">{error}</div>
 
+  // Filtra os repositórios com base no filtro de linguagem
+  const filteredReposByLanguage = languageFilter
+    ? repositories.filter((repo) => repo.language === languageFilter)
+    : repositories
+
   return (
-    <div className="mt-5  lg:w-full xl:w-full">
+    <div className="mt-5 lg:max-w-4x1 xl:max-w-xl">
       <ul className="space-y-2">
-        {repositories.map((repo) => {
-          const languages = repoLanguages[repo.id] || {} 
+        {filteredReposByLanguage.map((repo) => {
           return (
             <li key={repo.id} className="p-4 border border-gray-300 rounded-md">
               <a href={repo.html_url} className="text-lg text-bg-buttom-color font-semibold">
@@ -59,15 +43,9 @@ export const UserRepos: React.FC = () => {
                   <span>{repo.forks_count}</span>
                 </div>
               </div>
-
-              {/* Exibe as linguagens do repositório */}
-              <div className="mt-2 text-sm flex flex-wrap">
-                {Object.entries(languages).map(([language]) => (
-                  <span key={language} className="mr-2">
-                    {language || 'erro'}
-                  </span>
-                ))}
-              </div>
+              <p className="text-sm text-black mt-2">
+                {repo.language || ""}
+              </p>
             </li>
           )
         })}

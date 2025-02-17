@@ -1,11 +1,9 @@
 import { create } from "zustand"
-import { getUserInfo, Repositories, getStarredRepos, User, Repo } from "../services/git-repo-services"
+import { Repositories, Repo } from "../services/git-repo-services"
 
 interface RepoStore {
   username: string
-  userInfo: User | null
   repositories: Repo[]
-  starredRepos: Repo[]
   isLoading: boolean
   error: string | null
   setUsername: (username: string) => void
@@ -13,10 +11,10 @@ interface RepoStore {
 }
 
 export const useRepoStore = create<RepoStore>((set, get) => ({
-  username: localStorage.getItem("username") || "YuriAlvarenga",
-  userInfo: null,
+  username: localStorage.getItem("username") || "tech-in-enterprise",
   repositories: [],
-  starredRepos: [],
+  filteredRepositories: [],
+
   isLoading: false,
   error: null,
 
@@ -31,12 +29,11 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const [userInfo, repositories, starredRepos] = await Promise.all([
-        getUserInfo(username),
+      const [repositories] = await Promise.all([
         Repositories(username),
-        getStarredRepos(username),
       ])
-      set({ userInfo, repositories, starredRepos, isLoading: false })
+
+      set({ repositories, isLoading: false })
     } catch (error: any) {
       set({
         error: error.response?.data?.message || "Erro ao buscar dados",
