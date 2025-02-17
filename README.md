@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+Magazord Test Front-end 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Funcionalidades
+- Está setado para começar com meu usuário de um dos meus perfis do github. 
+- Busca de repositórios por usuário (usando Zustand para armazenar o nome do usuário).
+- Filtra entre repositórios públicos do usuário e os favoritos(starred)
+- Direciona o usuário para o github quando clica em um repositório
+- Componente de busca que pesquisa pelo usuário e seus respectivos diretório e demais informações referentes ao usuário quando aperta no ícone de busca
 
-Currently, two official plugins are available:
+# Tecnologias
+- TypeScript como linguagem principal.
+- Zustand para estado global.
+- React Query para gerenciamento de requisições, cache
+- TailwindCSS para estilização rápida.
+- Axios para chamadas HTTP.
+- Vercel para deploy rápido.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#Desafios
+- Nunca havia utitilizado o Zustand, apenas o Redux e achei bem mais fácil configurar o Zustand
+- Também não havia utilizado o React Query e tive que aprender a como usar para gerenciar melhor as requisições do projeto
+- Aparentemente parece ser um projeto bem mais simples do que de fato foi, então parecia que não ia ser muito grande, mas a medida que foi crescendo tive que refatorar e separar as responsabilidades, por exemplo, das stores para ficar um código limpo
 
-## Expanding the ESLint configuration
+#Melhorias
+- Com mais tempo, daria para tratar melhor os retornos dos erros
+- Coloquei o botão abaixo da barra de busca em tela mobile para melhorar o design, já que agora busca direto pelo usuário
+- Botão para alternar a pesquisa entre usuário e a busca de repositórios desse usuário
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+#Como Executar
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clonar o repositório:
+   git clone https://github.com/tech-in-enterprise/desafio-megazord.git
+2. Rodar npm (ou usar outro gerenciador de pacotes) install no diretório raíz do projeto (considerando que você já tenha o node instalado)
+3. Depois de baixar as dependências do projeto basta rodar o comando 'npm run dev' e acessar o link que vai aparecer
