@@ -39,6 +39,9 @@ export const UserStarredRepos: React.FC = () => {
                 <span>{repo.forks_count}</span>
               </div>
             </div>
+            <p className="text-sm text-black mt-2">
+                {repo.language || ""}
+              </p>
           </li>
         ))}
       </ul>

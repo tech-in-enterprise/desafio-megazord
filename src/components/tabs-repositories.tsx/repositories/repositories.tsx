@@ -7,7 +7,7 @@ import { useLanguageStore } from "../../../store/user-repo-language"
 
 export const UserRepos: React.FC = () => {
   const { username, repositories, UsersRepositories, isLoading, error } = useRepoStore()
-  const { languageFilter } = useLanguageStore()  // Acessando o filtro de linguagem
+  const { languageFilter } = useLanguageStore() 
 
   useEffect(() => {
     if (username) {

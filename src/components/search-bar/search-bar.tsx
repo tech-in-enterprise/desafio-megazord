@@ -7,7 +7,7 @@ import { useLanguageStore } from "../../store/user-repo-language"
 
 export const SearchBar: React.FC = () => {
     const { username, setUsername, UsersRepositories, repositories } = useRepoStore()
-    const { setLanguageFilter, languageFilter } = useLanguageStore()  // Acessando o estado do filtro de linguagem
+    const { setLanguageFilter, languageFilter } = useLanguageStore() 
     const [user, setUser] = useState(username)
 
     // Atualiza o usuário e faz a busca, depois limpa o estado
