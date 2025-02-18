@@ -6,6 +6,7 @@ Magazord Test Front-end
 - Filtra entre repositórios públicos do usuário e os favoritos(starred)
 - Direciona o usuário para o github quando clica em um repositório
 - Componente de busca que pesquisa pelo usuário e seus respectivos diretório e demais informações referentes ao usuário quando aperta no ícone de busca
+- Adicionei o filtro que alterna o filtro entre usuários e filtro de diretórios desse usuário
 
 # Tecnologias
 - TypeScript como linguagem principal.
@@ -30,8 +31,8 @@ Magazord Test Front-end
  - Requisições feitas em services
  - Gerenciamento das requisições nas stories
  - Distribuição nos respectivos componentes das informações trazidas dos stores
- - Reenderização dos componetens na página App para o usuário final 
-
+ - Reenderização dos componetens na página App para o usuário final
+ - Dividir mais alguns componentes em outros menores e consequentemente dividir as responsavilidades
 
 # Como Executar
 
