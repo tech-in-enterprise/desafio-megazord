@@ -12,6 +12,8 @@ interface LanguageStore {
 export const useLanguageStore = create<LanguageStore>((set) => ({
   languageFilter: "",
   filteredRepositories: [],
+
+  
   setLanguageFilter: (language: string) => {
     const { repositories } = useRepoStore.getState() 
     const filtered = language

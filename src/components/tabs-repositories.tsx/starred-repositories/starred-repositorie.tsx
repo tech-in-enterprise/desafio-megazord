@@ -3,12 +3,14 @@ import StarIcon from "@mui/icons-material/Star"
 import { GoRepoForked } from "react-icons/go"
 import { useStarredRepoStore } from "../../../store/user-repo-starred"
 import { useRepoStore } from "../../../store/user-repo-store"
+import { useLanguageStore } from "../../../store/user-repo-language"
 
 
 
 export const UserStarredRepos: React.FC = () => {
   const { username } = useRepoStore()
   const { starredRepos, getStarredRepos, isLoading, error } = useStarredRepoStore()
+  const { languageFilter } = useLanguageStore() 
 
   useEffect(() => {
     if (username) {
@@ -19,10 +21,15 @@ export const UserStarredRepos: React.FC = () => {
   if (isLoading) return <div>Carregando...</div>
   if (error) return <div className="text-red-500">{error}</div>
 
+  // Filtra os repositórios com base no filtro de linguagem
+  const filteredReposByLanguage = languageFilter
+    ? starredRepos.filter((repo) => repo.language === languageFilter)
+    : starredRepos
+
   return (
     <div className="mt-5 lg:max-w-xl xl:max-w-4x1">
       <ul className="space-y-2">
-        {starredRepos.map((repo) => (
+        {filteredReposByLanguage.map((repo) => (
           <li key={repo.id} className="p-4 border border-gray-300 rounded-md">
             <a href={repo.html_url} className="text-lg text-bg-buttom-color font-semibold">
               {repo.name}

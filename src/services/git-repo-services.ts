@@ -40,10 +40,13 @@ export type Repo = {
   stargazers_count: number
   html_url: string
   language: string | null 
+  forks_url: string 
+  is_template: boolean 
+  mirror_url: string | null 
 }
 
 // Função para buscar os repositórios usando Axios
-export const Repositories = async (username: string): Promise<Repo[]> => {
+export const getRepositories = async (username: string): Promise<Repo[]> => {
   const token = import.meta.env.VITE_GITHUB_TOKEN
   const { data } = await axiosRequest.get(`/users/${username}/repos`, {
     headers: {

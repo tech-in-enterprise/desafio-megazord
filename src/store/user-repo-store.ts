@@ -1,13 +1,15 @@
 import { create } from "zustand"
-import { Repositories, Repo } from "../services/git-repo-services"
+import { getRepositories, Repo } from "../services/git-repo-services"
 
 interface RepoStore {
   username: string
   repositories: Repo[]
+  filteredRepositories: Repo[]
   isLoading: boolean
   error: string | null
   setUsername: (username: string) => void
   UsersRepositories: (username: string) => Promise<void>
+  filterRepositories: (query: string) => void // Função para filtrar os repositórios
 }
 
 export const useRepoStore = create<RepoStore>((set, get) => ({
@@ -29,11 +31,9 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const [repositories] = await Promise.all([
-        Repositories(username),
-      ])
+      const repositories = await getRepositories(username)
+      set({ repositories, filteredRepositories: repositories, isLoading: false }) // Inicializa com todos os repositórios
 
-      set({ repositories, isLoading: false })
     } catch (error: any) {
       set({
         error: error.response?.data?.message || "Erro ao buscar dados",
@@ -42,5 +42,15 @@ export const useRepoStore = create<RepoStore>((set, get) => ({
     }
   },
 
+  filterRepositories: (query: string) => {
+    const { repositories } = get()
+    if (query) {
+      const filtered = repositories.filter((repo) =>
+        repo.name.toLowerCase().includes(query.toLowerCase()) // Filtra pelo nome
+      )
+      set({ filteredRepositories: filtered })
+    } else {
+      set({ filteredRepositories: repositories }) // Se não houver filtro, mostra todos
+    }
+  }
 }))
-

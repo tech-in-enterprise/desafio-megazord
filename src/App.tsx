@@ -13,10 +13,10 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-        {/* Topbar para tablets e maiores */}
-        <div className="hidden md:block bg-black text-white w-full">
-          <Topbar />
-        </div>
+      {/* Topbar para tablets e maiores */}
+      <div className="hidden md:block bg-black text-white w-full">
+        <Topbar />
+      </div>
       <div className="min-h-screen flex flex-col md:flex-row">
 
         <div className="flex flex-col md:flex-row w-full  gap-10">
@@ -32,7 +32,7 @@ export default function App() {
 
             {/* Search Bar */}
             <div className="mt-4">
-              <SearchBar />
+              <SearchBar activeTab={tabRepo} />
             </div>
 
             {/* Conteúdo Principal */}

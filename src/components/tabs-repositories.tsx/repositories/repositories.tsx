@@ -1,13 +1,12 @@
 import React, { useEffect } from "react"
 import { useRepoStore } from "../../../store/user-repo-store"
-
 import StarIcon from "@mui/icons-material/Star"
 import { GoRepoForked } from "react-icons/go"
 import { useLanguageStore } from "../../../store/user-repo-language"
 
 export const UserRepos: React.FC = () => {
-  const { username, repositories, UsersRepositories, isLoading, error } = useRepoStore()
-  const { languageFilter } = useLanguageStore() 
+  const { username, filteredRepositories, UsersRepositories, isLoading, error } = useRepoStore()
+  const { languageFilter } = useLanguageStore()
 
   useEffect(() => {
     if (username) {
@@ -20,8 +19,8 @@ export const UserRepos: React.FC = () => {
 
   // Filtra os repositórios com base no filtro de linguagem
   const filteredReposByLanguage = languageFilter
-    ? repositories.filter((repo) => repo.language === languageFilter)
-    : repositories
+    ? filteredRepositories.filter((repo) => repo.language === languageFilter)
+    : filteredRepositories
 
   return (
     <div className="mt-5 lg:max-w-4x1 xl:max-w-xl">

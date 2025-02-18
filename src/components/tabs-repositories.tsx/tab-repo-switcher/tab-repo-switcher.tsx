@@ -4,6 +4,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
 import { useRepoStore } from "../../../store/user-repo-store"
 import { useStarredRepoStore } from "../../../store/user-repo-starred"
 import { useUserInfoStore } from "../../../store/user-infor-profile"
+import { useLanguageStore } from "../../../store/user-repo-language"
 
 interface RepoTabsProps {
   activeTab: "repositories" | "starred"
@@ -15,12 +16,17 @@ export default function RepoTabs({ activeTab, setActiveTab }: RepoTabsProps) {
   const { username, UsersRepositories } = useRepoStore()
   const { userInfo } = useUserInfoStore()
   const { starredRepos, isLoading, error } = useStarredRepoStore()
+  const { setLanguageFilter } = useLanguageStore()
 
   useEffect(() => {
     if (username) {
       UsersRepositories(username)
     }
   }, [username, UsersRepositories])
+
+  useEffect(() => {
+    setLanguageFilter("") 
+  }, [activeTab, setLanguageFilter])
 
   if (isLoading) return <div>Carregando...</div>
   if (error) return <div className="text-red-500">{error}</div>
