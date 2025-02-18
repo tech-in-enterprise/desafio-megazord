@@ -22,6 +22,7 @@ Magazord Test Front-end
 - Aparentemente parece ser um projeto bem mais simples do que de fato foi, então parecia que não ia ser muito grande, mas a medida que foi crescendo tive que refatorar e separar as responsabilidades, por exemplo, das stores para ficar um código limpo
 
 # Melhorias
+- Usando bibliotecas visuais como material-ui
 - Com mais tempo, daria para tratar melhor os retornos dos erros
 - Coloquei o botão abaixo da barra de busca em tela mobile para melhorar o design, já que agora busca direto pelo usuário
 - Botão para alternar a pesquisa entre usuário e a busca de repositórios desse usuário
